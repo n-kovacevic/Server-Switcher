@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<root>
+    <property name="previous">logon.dalaran-realmlist.org</property>
+    <property name="wow_folder">C:\World of Warcraft 3.3.5a (no install)</property>
+    <servers>
+        <server name="Dalaran WoW">logon.dalaran-realmlist.org</server>
+        <server name="Gamer District">wow.gamer-district.org</server>
+    </servers>
+</root>

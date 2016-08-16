@@ -1,0 +1,17 @@
+.root{
+	-fx-background-image: url("./Background.png");
+}
+
+Button#playButton{
+	-fx-background-image: url("./Play_Normal.png");
+	-fx-background-color: transparent;
+}
+
+Button#playButton:hover{
+	-fx-background-image: url("./Play_Hover.png");
+	-fx-cursor: hand;
+}
+
+Button#playButton:pressed{
+	-fx-opacity: 0.8;
+}
