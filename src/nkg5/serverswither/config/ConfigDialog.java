@@ -1,4 +1,4 @@
-package nkg5.serverswither;
+package nkg5.serverswither.config;
 
 import java.io.File;
 import java.util.HashMap;

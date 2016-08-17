@@ -1,5 +1,5 @@
 .root{
-	-fx-background-image: url("./Background.png");
+	-fx-background-image: url("./bg3.png");
 }
 
 Button#playButton{

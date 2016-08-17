@@ -2,14 +2,10 @@ package nkg5.serverswither;
 
 import java.io.IOException;
 import java.net.URL;
-import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
-import java.nio.file.LinkOption;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.SimpleFileVisitor;
 import java.nio.file.StandardOpenOption;
-import java.nio.file.attribute.BasicFileAttributes;
 import java.util.LinkedList;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -21,6 +17,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import nkg5.serverswither.config.Config;
+import nkg5.serverswither.config.ConfigDialog;
+import nkg5.serverswither.config.ConfigManager;
 
 public class ServerSwitcherController implements Initializable{
 
@@ -28,13 +27,12 @@ public class ServerSwitcherController implements Initializable{
 	private ComboBox<String> serverCombo;
 	@FXML
 	private AnchorPane rootPane;
-	
+		
 	private Config conf;
 	
 	public ServerSwitcherController(){
 		conf = ConfigManager.loadConfig();
 	}
-	
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -46,94 +44,38 @@ public class ServerSwitcherController implements Initializable{
 	@FXML
 	private void buttonPlay(ActionEvent e){
 		try {
-			Runtime runtime = Runtime.getRuntime();
+			// In case folder path don't end with "\"
 			String path = conf.getProp("wow_folder");
 			if(!(path.endsWith("\\")
 					||path.endsWith("/")))
 				path += "\\";
+			
+			// Backup current cache
+			CacheManager.getInstance().backupCache(path);
+			
+			// Replace realmlist
+			Path realmlistPath = Paths.get(path+"Data\\enUS\\realmlist.wtf");
+			Files.deleteIfExists(realmlistPath);
 			LinkedList<String> lines = new LinkedList<String>();
 			String realm = conf.getServer(serverCombo.getValue());
 			lines.add("set realmlist " + realm);
-			
-			System.out.println(serverCombo.getValue());
-			Path realmlistPath = Paths.get(path+"Data\\enUS\\realmlist.wtf");
-			Files.deleteIfExists(realmlistPath);
 			Files.write(realmlistPath, lines, StandardOpenOption.CREATE, StandardOpenOption.WRITE);
 			
-			if(realm != conf.getProp("previous"))
-				copyCache(path);
-			
+			// Restore cache for current realmlist
+			CacheManager.getInstance().restoreCache(path);
+
+			// Start WoW client
+			Runtime runtime = Runtime.getRuntime();
 			runtime.exec(path + "Wow.exe");
+			
+			// Close this program
 			((Stage) serverCombo.getScene().getWindow()).close();
+			
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
 	}
 
-	private void copyCache(String folder){
-		try{
-			Path path = Paths.get(folder+"Cache/");
-			Path dest = Paths.get("./Cache/"+conf.getProp("previous"));
-			if(Files.exists(dest, LinkOption.NOFOLLOW_LINKS))
-					deleteFolder(dest);
-			copyFolder(path, dest);
-			deleteFolder(path);
-			dest = Paths.get("./Cache/"+conf.getServer(serverCombo.getValue()));
-			
-			copyFolder(dest, path);
-			conf.setProp("previous", conf.getServer(serverCombo.getValue()));
-			ConfigManager.saveConfig(conf);
-		}catch(IOException ex){
-			ex.printStackTrace();
-		}
-	}
-	
-	private void copyFolder(Path sourcePath, Path targetPath) throws IOException{
-		if (Files.exists(sourcePath, LinkOption.NOFOLLOW_LINKS)){
-			Files.walkFileTree(sourcePath, new SimpleFileVisitor<Path>() {
-			    private Path sourcePath = null;
-			    @Override
-				public FileVisitResult preVisitDirectory(final Path dir,
-			    final BasicFileAttributes attrs) throws IOException {
-			        if (sourcePath == null) {
-			            sourcePath = dir;
-			        } else {
-			        Files.createDirectories(targetPath.resolve(sourcePath
-			                    .relativize(dir)));
-			        }
-			        return FileVisitResult.CONTINUE;
-			    }
-
-			    @Override
-			    public FileVisitResult visitFile(final Path file,
-			    final BasicFileAttributes attrs) throws IOException {
-			    Files.copy(file,
-			        targetPath.resolve(sourcePath.relativize(file)));
-			    return FileVisitResult.CONTINUE;
-			    }
-			});
-		}
-	}
-	
-	private void deleteFolder(Path path) throws IOException {
-		if(Files.exists(path, LinkOption.NOFOLLOW_LINKS))
-			Files.walkFileTree(path, new SimpleFileVisitor<Path>(){
-	
-				@Override
-				public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
-					Files.delete(dir);
-					return FileVisitResult.CONTINUE;
-				}
-	
-				@Override
-				public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-					Files.delete(file);
-					return FileVisitResult.CONTINUE;
-				}
-			
-		});
-	}
-	
 	@FXML
 	private void buttonEdit(ActionEvent e){
 		ConfigDialog dialog = new ConfigDialog();

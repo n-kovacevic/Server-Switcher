@@ -14,9 +14,9 @@ public class ServerSwitcher extends Application{
 
 	@Override
 	public void start(Stage stage) throws Exception {
-		Parent root = FXMLLoader.load(getClass().getResource("ServerSwitcher.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("res/ServerSwitcher.fxml"));
 		Scene scene = new Scene(root);
-		scene.getStylesheets().add(getClass().getResource("style.css").toString());
+		scene.getStylesheets().add(getClass().getResource("res/style.css").toString());
 		stage.setScene(scene);
 		stage.show();
 	}
