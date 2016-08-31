@@ -9,6 +9,7 @@ import java.nio.file.StandardOpenOption;
 import java.util.LinkedList;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.stream.Stream;
 
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -29,6 +30,7 @@ public class ServerSwitcherController implements Initializable{
 	private AnchorPane rootPane;
 		
 	private Config conf;
+	private String realmlist;
 	
 	public ServerSwitcherController(){
 		conf = ConfigManager.loadConfig();
@@ -51,18 +53,18 @@ public class ServerSwitcherController implements Initializable{
 				path += "\\";
 			
 			// Backup current cache
-			CacheManager.getInstance().backupCache(path);
+			Path realmlistFile = Paths.get(conf.getProp("realmlist"));
+			CacheManager.getInstance().backupCache(path, realmlistFile);
 			
 			// Replace realmlist
-			Path realmlistPath = Paths.get(path+"Data\\enUS\\realmlist.wtf");
-			Files.deleteIfExists(realmlistPath);
+			Files.deleteIfExists(realmlistFile);
 			LinkedList<String> lines = new LinkedList<String>();
 			String realm = conf.getServer(serverCombo.getValue());
 			lines.add("set realmlist " + realm);
-			Files.write(realmlistPath, lines, StandardOpenOption.CREATE, StandardOpenOption.WRITE);
+			Files.write(realmlistFile, lines, StandardOpenOption.CREATE, StandardOpenOption.WRITE);
 			
 			// Restore cache for current realmlist
-			CacheManager.getInstance().restoreCache(path);
+			CacheManager.getInstance().restoreCache(path, realmlistFile);
 
 			// Start WoW client
 			Runtime runtime = Runtime.getRuntime();
@@ -83,6 +85,24 @@ public class ServerSwitcherController implements Initializable{
 		if(result.isPresent()){
 			conf = result.get();
 			serverCombo.setItems(FXCollections.observableArrayList(conf.getServers().keySet()));
+			realmlist = conf.getProp("wow_folder");
+			if(Files.exists(Paths.get(realmlist, "realmlist.wtf"))){
+				realmlist += "\\realmlist.wtf";
+				conf.setProp("realmlist", realmlist.toString());
+			}else{
+				try {
+					Stream<Path> local = Files.list(Paths.get(realmlist, "Data"));
+					local.forEach(t->{
+						if(Files.isDirectory(t))
+							realmlist = t.toString();
+					});
+					local.close();
+					realmlist += "\\realmlist.wtf";
+					conf.setProp("realmlist", realmlist.toString());
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
 			ConfigManager.saveConfig(conf);
 		}
 	}

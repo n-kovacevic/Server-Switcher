@@ -19,8 +19,8 @@ public class CacheManager {
 	}
 	
 	// Makes local backup of game cache
-	public void backupCache(String wowFolder) throws IOException{
-		String realmlist = getRealmlist(wowFolder);
+	public void backupCache(String wowFolder, Path realmlistFile) throws IOException{
+		String realmlist = readRealmlist(realmlistFile);
 		if (realmlist != null){
 			String localCache = "Cache\\"+realmlist;
 			String gameCache = wowFolder+"Cache";
@@ -31,8 +31,8 @@ public class CacheManager {
 	}
 	
 	// Restores local cache backup
-	public void restoreCache(String wowFolder) throws IOException{
-		String realmlist = getRealmlist(wowFolder);
+	public void restoreCache(String wowFolder, Path realmlistFile) throws IOException{
+		String realmlist = readRealmlist(realmlistFile);
 		String localCache = "Cache\\"+realmlist;
 		String gameCache = wowFolder+"Cache";
 		deleteFolder(gameCache);
@@ -41,8 +41,7 @@ public class CacheManager {
 	}
 	
 	// Read realmlist url from realmlist file.
-	private String getRealmlist(String wowFolder) throws IOException{
-		Path realmlist = Paths.get(wowFolder + "Data\\enUS\\realmlist.wtf");
+	private String readRealmlist(Path realmlist) throws IOException{
 		List<String> lines = Files.readAllLines(realmlist);
 		String realmlistURL = null;
 		for(String line: lines){

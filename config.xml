@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <root>
-    <property name="wow_folder">C:\Users\nkg5\Desktop\Test</property>
+    <property name="wow_folder">C:\Users\nkg5\Desktop\New folder</property>
+    <property name="realmlist">C:\Users\nkg5\Desktop\New folder\realmlist.wtf</property>
     <servers>
         <server name="Dalaran WoW">logon.dalaran-realmlist.org</server>
         <server name="Gamer District">wow.gamer-district.org</server>

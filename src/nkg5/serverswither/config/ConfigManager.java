@@ -24,6 +24,8 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 public class ConfigManager {
+	
+	// Save config to XML file
 	public static void saveConfig(Config conf){
 		Document doc;
 		Element element = null;
@@ -68,8 +70,8 @@ public class ConfigManager {
 		}
 	}
 	
+	// Load config from XML file
 	public static Config loadConfig(){
-		
 		HashMap<String, String> servers = new HashMap<>();
 		HashMap<String, String> props = new HashMap<>();
 		Document xmlDoc = loadXML("config.xml");
@@ -92,6 +94,7 @@ public class ConfigManager {
 		return conf;
 	}
 	
+	// Parse XML
 	private static Document loadXML(String filename) {
 		try {
 			DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
