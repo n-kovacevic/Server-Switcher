@@ -1,14 +1,14 @@
 .root{
-	-fx-background-image: url("./bg3.png");
+	-fx-background-image: url("./background.png");
 }
 
 Button#playButton{
-	-fx-background-image: url("./Play_Normal.png");
+	-fx-background-image: url("./playnormal.png");
 	-fx-background-color: transparent;
 }
 
 Button#playButton:hover{
-	-fx-background-image: url("./Play_Hover.png");
+	-fx-background-image: url("./playhover.png");
 	-fx-cursor: hand;
 }
 
