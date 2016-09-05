@@ -1,6 +1,6 @@
 {
   "name": "Server Switcher",
   "tagline": "Server switcher for World of Warcraft 3.3.5a",
-  "body": "![Screenshot](https://raw.githubusercontent.com/nkg5/Server-Switcher/master/docs/res/screen.png)\r\n## Summary\r\nThis program is intended for people constantly switching private server they are playing on. It currently works only on patch 3.3.5a client and support for other versions is planed in the future.\r\n\r\n## Contribution\r\nIf you wish to contribute to the project feel free to fork it and modify it to your needs. Also any other sort of contribution is welcome.\r\n\r\n## Possible bugs\r\nCache replacement feature is not fully tested yet and may result in some bugs or program crashes.\r\n",
+  "body": "![Screenshot](https://raw.githubusercontent.com/nkg5/Server-Switcher/master/docs/res/ss.png)\r\n## Summary\r\nThis program is intended for people constantly switching private server they are playing on. It currently works only on patch 3.3.5a client and support for other versions is planed in the future.\r\n\r\n## Contribution\r\nIf you wish to contribute to the project feel free to fork it and modify it to your needs. Also any other sort of contribution is welcome.\r\n\r\n## Possible bugs\r\nCache replacement feature is not fully tested yet and may result in some bugs or program crashes.\r\n",
   "note": "Don't delete this file! It's used internally to help with page regeneration."
 }
