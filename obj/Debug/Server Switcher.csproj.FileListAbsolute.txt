@@ -1,0 +1,15 @@
+C:\Users\nkovacevic\Documents\Projects\Server-Switcher\bin\Debug\Server Switcher.exe.config
+C:\Users\nkovacevic\Documents\Projects\Server-Switcher\bin\Debug\Server Switcher.exe
+C:\Users\nkovacevic\Documents\Projects\Server-Switcher\bin\Debug\Server Switcher.pdb
+C:\Users\nkovacevic\Documents\Projects\Server-Switcher\obj\Debug\MainWindow.g.cs
+C:\Users\nkovacevic\Documents\Projects\Server-Switcher\obj\Debug\App.g.cs
+C:\Users\nkovacevic\Documents\Projects\Server-Switcher\obj\Debug\Server Switcher_MarkupCompile.cache
+C:\Users\nkovacevic\Documents\Projects\Server-Switcher\obj\Debug\Server Switcher_MarkupCompile.lref
+C:\Users\nkovacevic\Documents\Projects\Server-Switcher\obj\Debug\MainWindow.baml
+C:\Users\nkovacevic\Documents\Projects\Server-Switcher\obj\Debug\Server Switcher.g.resources
+C:\Users\nkovacevic\Documents\Projects\Server-Switcher\obj\Debug\Server_Switcher.Properties.Resources.resources
+C:\Users\nkovacevic\Documents\Projects\Server-Switcher\obj\Debug\Server Switcher.csproj.GenerateResource.Cache
+C:\Users\nkovacevic\Documents\Projects\Server-Switcher\obj\Debug\Server Switcher.csproj.CoreCompileInputs.cache
+C:\Users\nkovacevic\Documents\Projects\Server-Switcher\obj\Debug\Server Switcher.exe
+C:\Users\nkovacevic\Documents\Projects\Server-Switcher\obj\Debug\Server Switcher.pdb
+C:\Users\nkovacevic\Documents\Projects\Server-Switcher\obj\Debug\Server Switcher.csprojResolveAssemblyReference.cache
